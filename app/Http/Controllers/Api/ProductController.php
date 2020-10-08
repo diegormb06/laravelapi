@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Repository\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -25,10 +27,20 @@ class ProductController extends Controller
      * Display a listing of the products.
      *
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->product->paginate(2);
-        return response()->json($products);
+        $products = $this->product;
+        $productsRepository = new ProductRepository($products);
+
+        if($request->has('conditions')) {
+            $productsRepository->selectConditions($request->get('conditions'));
+        }
+
+        if($request->has('fields')){
+            $productsRepository->selectFilter($request->get('fields'));
+        }
+
+        return $productsRepository->getResult()->paginate(10);
     }
 
     /**

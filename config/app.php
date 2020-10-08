@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'pt_BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -229,4 +229,5 @@ return [
 
     ],
 
+    'write_eloquent_model_mixins' => true
 ];

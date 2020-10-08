@@ -10,4 +10,4 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
-Route::resource('/Users', UserController::class);
+Route::resource('/user', UserController::class)->middleware('auth.basic');

@@ -3,10 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    /**
+     * @var User
+     */
+    private $users;
+
+    public function __construct(User $users)
+    {
+        $this->users = $users;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $all_users = $this->users->all();
+        return response()->json($all_users);
     }
 
     /**
